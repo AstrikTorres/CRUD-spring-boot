@@ -51,9 +51,10 @@ public class ClientsController {
 	}
 	
     @DeleteMapping(path = "/{id}/")
-	public @ResponseBody String deleteClient(
+	public @ResponseBody Object deleteClient(
 											@PathVariable("id") int id
 										) throws Exception {
-		return clientsService.deleteClient(id);
+    	String[] msg = {"Se eliminó el cliente", "No se pudo eliminar el cliente, verifique id"};
+		return clientsService.deleteClient(id) ? msg[0] : msg[1];
 	}	
 }

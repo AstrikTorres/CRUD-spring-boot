@@ -62,9 +62,9 @@ public class Test_clientsController {
 	@Test
 	@Order(1)
 	public void test_createClient() throws Exception {
-		long ms = System.currentTimeMillis();
+		
 		String name = "Prueba por bytes";
-		Date created = new Date(ms);
+		Date created = new Date();
 		
 		ClientsModel client = new ClientsModel(name, created);
 		
@@ -102,10 +102,10 @@ public class Test_clientsController {
 	@Test
 	@Order(3)
 	public void test_updateClients() throws Exception {
-		long ms = System.currentTimeMillis();
+		
 		int id = 35;
 		String name = "update por bytes";
-		Date modified = new Date(ms);
+		Date modified = new Date();
 		
 		ClientsModel client = new ClientsModel(id, name, modified);
 		
@@ -121,7 +121,7 @@ public class Test_clientsController {
 										).andReturn();
 		String msg = result.getResponse().getContentAsString();
 		// then
-		//		System.out.println(resultExpected);
+		// System.out.println(resultExpected);
 		System.out.println(msg);
 		// assertEquals(resultExpected, msg);
 	}

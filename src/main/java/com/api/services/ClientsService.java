@@ -20,16 +20,18 @@ public class ClientsService {
 		String name = client.getName();
 		Date created = client.getCreated();
 		
-		if(name != null 
-				&& created != null) {
-			return ClientsDao.createClient(client);
-		}
-		else return null;
+		if(
+			name != null 
+			&& created != null
+		) 
+		return ClientsDao.createClient(client);
+		
+		return null;
 	}
 
 	public ArrayList<ClientsModel> getClients() {
 //		System.out.println("service");
-		return ClientsDao.reedClients();
+		return ClientsDao.readClients();
 	}
 
 	public ClientsModel updateClient(ClientsModel client) {
@@ -37,18 +39,20 @@ public class ClientsService {
 		String name = client.getName();
 		Date modified = client.getModified();
 		
-		if(name != null && id > 0 
-				&& modified != null) {
-			return ClientsDao.updateClient(client);
-		}
-		else return null;
+		if(
+			name != null && id > 0 
+			&& modified != null
+		) 
+		return ClientsDao.updateClient(client);
+		
+		return null;
 	}
 
-	public String deleteClient(int id) {
-		boolean ok = ClientsDao.deleteClient(id);
+	public boolean deleteClient(int id) {
 		
-		if(ok) return "Se eliminó el cliente";
-		else return "No se pudo eliminar el cliente, verifique id";
+		return ClientsDao.deleteClient(id)  ? true
+											: false
+											;
 	}
 
 }
