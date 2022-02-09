@@ -6,7 +6,7 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 
 import com.api.daos.ClientsDao;
-import com.api.models.ClientsModel;
+import com.api.models.clients.Clients;
 
 @Service
 public class ClientsService {
@@ -16,7 +16,7 @@ public class ClientsService {
 		return "HELLO!";
 	}
 
-	public ClientsModel createClient(ClientsModel client) {
+	public Clients createClient(Clients client) {
 		String name = client.getName();
 		Date created = client.getCreated();
 		
@@ -29,12 +29,12 @@ public class ClientsService {
 		return null;
 	}
 
-	public ArrayList<ClientsModel> getClients() {
+	public ArrayList<Clients> getClients() {
 //		System.out.println("service");
 		return ClientsDao.readClients();
 	}
 
-	public ClientsModel updateClient(ClientsModel client) {
+	public Clients updateClient(Clients client) {
 		int id = client.getId();
 		String name = client.getName();
 		Date modified = client.getModified();

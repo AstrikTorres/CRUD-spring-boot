@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import com.api.models.ClientsModel;
+import com.api.models.clients.Clients;
 import com.api.services.ClientsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -66,7 +66,7 @@ public class Test_clientsController {
 		String name = "Prueba por bytes";
 		Date created = new Date();
 		
-		ClientsModel client = new ClientsModel(name, created);
+		Clients client = new Clients(name, created);
 		
 		String data = mapper.writeValueAsString(client);
 		byte[] postDataBytes = data.toString().getBytes("UTF-8");
@@ -107,7 +107,7 @@ public class Test_clientsController {
 		String name = "update por bytes";
 		Date modified = new Date();
 		
-		ClientsModel client = new ClientsModel(id, name, modified);
+		Clients client = new Clients(id, name, modified);
 		
 		String data = mapper.writeValueAsString(client);
 		byte[] postDataBytes = data.toString().getBytes("UTF-8");

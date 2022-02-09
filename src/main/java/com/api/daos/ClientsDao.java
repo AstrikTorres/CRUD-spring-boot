@@ -6,12 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.api.models.ClientsModel;
+import com.api.models.clients.Clients;
 import com.api.utill.MyConnectionDB;
 
 public class ClientsDao {
 
-	public static ClientsModel createClient(ClientsModel newClient) {
+	public static Clients createClient(Clients newClient) {
 		MyConnectionDB connection = new MyConnectionDB();
     	PreparedStatement ps = null;
     	
@@ -29,11 +29,14 @@ public class ClientsDao {
 	    		ps = conn.prepareStatement(query2);
 	    		ResultSet rs = ps.executeQuery();
 	    		
-	    		while (rs.next()) {
-					newClient.setId(rs.getInt("id"));
-					newClient.setName(rs.getString("name"));
-					newClient.setModified(rs.getDate("modified"));
-					newClient.setCreated(rs.getDate("created"));
+	    		if (rs.next()) {
+	    			Clients savedClient = new Clients(
+																rs.getInt("id"),
+																rs.getString("name"),
+																rs.getDate("modified"),
+																rs.getDate("created")
+															  );
+	    			return savedClient;
 				}
 				rs.close();			
 			}
@@ -44,26 +47,27 @@ public class ClientsDao {
 		return newClient;
 	}
 
-	public static ArrayList<ClientsModel> readClients() {
-		ArrayList<ClientsModel> clients = null;
+	public static ArrayList<Clients> readClients() {
+		ArrayList<Clients> clients = null;
 		
 		MyConnectionDB connection = new MyConnectionDB();
     	PreparedStatement ps = null;
     	ResultSet rs = null;
     	
 		try(Connection conn = connection.getConnection()) {
-			clients = new ArrayList<ClientsModel>();
+			clients = new ArrayList<Clients>();
     		String query = "SELECT * FROM crud_prueba.clientes";
     		
 			ps = conn.prepareStatement(query);
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				ClientsModel client = new ClientsModel();
-				client.setId(rs.getInt("id"));
-				client.setName(rs.getString("name"));
-				client.setModified(rs.getDate("modified"));
-				client.setCreated(rs.getDate("created"));
+				Clients client = new Clients(
+														rs.getInt("id"),
+														rs.getString("name"),
+														rs.getDate("modified"),
+														rs.getDate("created")
+													  );
 				clients.add(client);
 			}
 			rs.close();
@@ -74,7 +78,7 @@ public class ClientsDao {
 		return clients;
 	}
 	
-	public static ClientsModel updateClient(ClientsModel client) {
+	public static Clients updateClient(Clients client) {
 		MyConnectionDB connection = new MyConnectionDB();
     	PreparedStatement ps = null;
 
@@ -119,7 +123,10 @@ public class ClientsDao {
 			ps = conn.prepareStatement(query);
 				ps.setInt(1, id);
 			
-			return ps.executeUpdate() == 1 ? true : false;
+			return ps.executeUpdate() == 1  ? true 
+											: false
+											;
+			
 		} catch (SQLException e) {
 			System.err.println(e);
 			return false;
