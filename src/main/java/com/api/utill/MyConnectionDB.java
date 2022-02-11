@@ -13,7 +13,7 @@ public class MyConnectionDB {
 
 				String host = "jdbc:mysql://localhost:3306/crud_prueba";
 				String uName = "root";
-				String uPass = "*******";
+				String uPass = "******";
 				
 		        Class.forName("com.mysql.cj.jdbc.Driver");
 				singletonConn = DriverManager.getConnection(host, uName, uPass);

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
+<title>clients</title>
+</head>
+
+<style>
+:root { 
+	--white: #FFFFFF;
+	--black: #000000;
+	--orange: #cf8700;
+	--bg-color: #3b5a7e63;
+}
+
+body {
+	background-color: var(--bg-color);
+}
+
+header {
+	background-color: var(--white);
+}
+</style>
+
+<body>
+
+	<header class="navbar navbar-light">
+		<div class="container-fluid">
+			<div class="navbar-brand">
+				<img src="./assets/images/gestopago_logo_150h.png" alt=""
+					class="d-inline-block align-text-top">
+				<h1 id="name-app" class="name-app"></h1>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<div class="">
+			<button id="refresh" type="button" class="btn btn-primary">Refrescar</button>
+			<button type="button" class="btn btn-primary">Agregar</button>
+		</div>
+	
+		<section>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">Id</th>
+						<th scope="col">Name</th>
+						<th scope="col">Modified</th>
+						<th scope="col">Created</th>
+						<th scope="col"></th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody id="table-clients">
+				</tbody>
+			</table>
+
+		</section>
+	</main>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+
+	<script>
+
+	const nameApp = "Clients App"
+	let clients = null;
+	
+	$("#name-app").text(nameApp)
+
+	const getClients = () => {
+		$("#table-clients").empty();
+		$.ajax({
+			url: "/demo/clients/",
+			method: 'GET',
+			context: document.body,
+			success: (data) => {
+				clients = data;
+				for(client of clients) {
+					// Introducir los datos en la tabla
+					$("#table-clients").append(`
+						<tr>
+							<th scope="row">${client.id}</th>
+							<td>${client.name}</td>
+							<td>${client.modified}</td>
+							<td>${client.created}</td>
+							<td><button type="button" class="btn btn-primary">Editar</button></td>
+							<td><button type="button" class="btn btn-danger">Eliminar</button></td>
+						</tr>
+					`);
+				}
+			},
+			error: (jqexhr, textStatus, error) => {
+				alert('error: ' + jqexhr.status + ' - ' + error );
+			}
+		});
+	}
+	
+	x = function() {
+		getClients();
+	} ();
+
+	$("#refresh").on("click",getClients)
+
+
+</script>
+
+</body>
+</html>
+
