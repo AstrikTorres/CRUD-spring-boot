@@ -85,7 +85,7 @@ header {
 	const getClients = () => {
 		$("#table-clients").empty();
 		$.ajax({
-			url: "/demoMySql/clients/",
+			url: "/demo/clients/",
 			method: 'GET',
 			context: document.body,
 			success: (data) => {
