@@ -21,11 +21,17 @@
 	</properties>
 	<dependencies>
 	
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-security</artifactId>
+		    <version>2.6.3</version>
+		</dependency>
+	
 		<!-- Validaciones -->
         <dependency>
 	      <groupId>org.springframework.boot</groupId>
 	      <artifactId>spring-boot-starter-validation</artifactId>
-	  </dependency>
+	  	</dependency>
         
         
 		<dependency>
