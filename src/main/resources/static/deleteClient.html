@@ -102,7 +102,7 @@
   $("#delete").click( () => {
 
     $.ajax({
-      url: `http://localhost:8080/demo/clients/${id}/`,
+      url: `/clients/${id}/`,
       method: 'DELETE',
       context: document.body,
 

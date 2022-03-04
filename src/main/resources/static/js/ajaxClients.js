@@ -5,7 +5,7 @@ function getClients() {
 
   setTimeout(() => {
     $.ajax({
-      url: "http://localhost:8080/demo/clients/",
+      url: "/clients/",
       method: 'GET',
       context: document.body,
 
